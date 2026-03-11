@@ -24,3 +24,72 @@ Al arrancar, muestra un menú:
     Salir
 
 Al elegir Top 3, imprime tres tuplas (juego, puntuación) ordenadas de mayor a menor.'''
+
+def menu():
+   global op
+   print("\n=========== Menu ==========")
+   print("1. Añadir juegos")
+   print("2. Actualizar puntuación")
+   print("3. Juegos mejor valorados")
+   print("4. Salir")
+
+
+   op = int(input("Opción: "))
+   return op
+
+videojuegos = {
+       "call of duty": 9.5,
+       "blood strike": 7.6,
+       "clash royale": 8.9,
+       "minecraft": 7.3
+   }
+global a
+
+def add_game(nombre, puntuacion):
+   
+   videojuegos[nombre] = puntuacion
+   
+   print("Videojuego agregado correctamente\n")
+   return videojuegos
+
+def actualizarPuntuacion():
+   print("\n=========== Actualizar puntuacion ==========")
+   name = input("Videojuego al que se actualizara la puntuacion: ")
+   while name not in videojuegos:
+    name = input("Videojuego al que se actualizara la puntuacion: ")
+
+   puntos = float(input("Nueva puntuación: "))
+   videojuegos[name] = puntos
+  
+def top_n():
+    print("\n=========== Top 3 mejores juegos ==========")
+    ordenJuegos = sorted(videojuegos.items(), key=lambda x: x[1], reverse= True)
+    i = 0
+    for nombre, puntuacion in ordenJuegos:
+        i += 1
+        print(f"{i}. {nombre}: {puntuacion}")
+        if i == 3:
+            break
+
+def main():
+   
+   while True:
+    menu()
+    if op == 1:
+       print("Agregar videojuego")
+       nombre = input("Nombre del videojuego: ")
+       puntuacion = float(input("Puntuación: "))
+       add_game(nombre, puntuacion)
+    elif op == 2:
+        actualizarPuntuacion()
+    elif op == 3:
+       top_n()
+    elif op == 4:
+        print("Saliendo del programa...")
+        break
+    else:
+        print("Opción no válida")
+   
+
+
+main()
